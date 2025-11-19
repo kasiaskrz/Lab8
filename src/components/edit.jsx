@@ -27,7 +27,7 @@
  const handleSubmit = (event) => {
      event.preventDefault();
      const newMovie = { id, title, year, poster };
-     axios.put('http://localhost:4000/api/movie/' + id, newMovie)
+     axios.put('http://localhost:3000/api/movie/' + id, newMovie)
          .then((res) => {
              console.log(res.data);
              navigate('/read');

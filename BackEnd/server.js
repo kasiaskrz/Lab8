@@ -88,7 +88,6 @@ app.get('/api/movies', async (req, res) => {
 app.post('/api/movies', async (req, res) => {
 
   const { title, year, poster } = req.body;
-
   // Create new movie document
   const newMovie = new movieModel({ title, year, poster }); 
   // Return saved movie
@@ -98,11 +97,16 @@ app.post('/api/movies', async (req, res) => {
 })
 
 
-// route for fetching a single movie by ID
+
 app.get('/api/movie/:id', async (req, res) => {
-  // find movie by MongoDB ObjectId
-  const movie = await movieModel.findById(req.params.id);
-  res.send(movie); 
+    let movie = await movieModel.findById({ _id: req.params.id });
+    res.send(movie);
+});
+
+app.put('/api/movie/:id', async (req, res) => {
+  const { title, year, poster } = req.body;
+    const updatedMovie = await movieModel.findByIdAndUpdate(req.params.id, { title, year, poster }, { new: true });
+    res.send(updatedMovie);
 });
 
 // start the server and listen on the specified port
