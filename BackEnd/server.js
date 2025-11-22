@@ -97,15 +97,20 @@ app.post('/api/movies', async (req, res) => {
 })
 
 
-
+// Get a single movie by its ID
 app.get('/api/movie/:id', async (req, res) => {
     let movie = await movieModel.findById({ _id: req.params.id });
     res.send(movie);
 });
 
+// Update a movie by its ID
 app.put('/api/movie/:id', async (req, res) => {
   const { title, year, poster } = req.body;
+  
+    // Update the movie and return the newly updated version
     const updatedMovie = await movieModel.findByIdAndUpdate(req.params.id, { title, year, poster }, { new: true });
+    
+  // Send the updated movie back to the client
     res.send(updatedMovie);
 });
 
