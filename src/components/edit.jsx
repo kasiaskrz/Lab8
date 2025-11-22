@@ -13,8 +13,10 @@
    const navigate = useNavigate();
 
  useEffect(() => {
+      // Load movie data when the component mounts
      axios.get('http://localhost:3000/api/movie/' + id)
          .then((response) => {
+             // Fill form fields with existing movie data
              setTitle(response.data.title);
              setYear(response.data.year);
              setPoster(response.data.poster);
@@ -26,11 +28,12 @@
 
  const handleSubmit = (event) => {
      event.preventDefault();
+     // Build updated movie object
      const newMovie = { id, title, year, poster };
      axios.put('http://localhost:3000/api/movie/' + id, newMovie)
          .then((res) => {
-             console.log(res.data);
-             navigate('/read');
+             console.log(res.data); // Confirm update
+             navigate('/read'); // Redirect back to movie list
          });
  }
 
